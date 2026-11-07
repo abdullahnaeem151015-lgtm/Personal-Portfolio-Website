@@ -18,6 +18,8 @@ export function ContactForm() {
       return;
     }
 
+    const formAction = form.getAttribute("action") || "/";
+
     setIsSubmitting(true);
     setError("");
     setSuccess(false);
@@ -30,27 +32,28 @@ export function ContactForm() {
     payload.set("form-name", "contact");
 
     try {
-      const response = await fetch("/", {
+      const response = await fetch(formAction, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: payload.toString(),
       });
 
       if (!response.ok) {
-        throw new Error("Submission failed");
+        throw new Error(`HTTP ${response.status}`);
       }
 
       setSuccess(true);
       form.reset();
-    } catch {
-      setError(`Something went wrong while submitting the form. Please try again, or email ${contact.email} directly.`);
+    } catch (error) {
+      const statusText = error instanceof Error && /^HTTP \d{3}$/.test(error.message) ? error.message : "HTTP status unavailable";
+      setError(`Something went wrong while submitting the form (${statusText}). Please try again, or email ${contact.email} directly.`);
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className="card-base grid gap-4 p-5 sm:p-6" aria-labelledby="contact-form-title" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <form onSubmit={onSubmit} className="card-base grid gap-4 p-5 sm:p-6" aria-labelledby="contact-form-title" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="contact" />
       <input type="hidden" name="bot-field" />
       <h3 id="contact-form-title" className="text-lg font-semibold">Discuss a project</h3>
