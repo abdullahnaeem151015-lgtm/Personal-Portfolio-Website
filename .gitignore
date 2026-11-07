@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.prerender/
+.env
+.vercel/
+.netlify/
+.env.*
+!.env.example

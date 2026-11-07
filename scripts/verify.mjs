@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict';
+import {readFileSync,existsSync} from 'node:fs';
+import {JSDOM} from 'jsdom';
+import {App,paths,render} from '../.prerender/prerender.js';
+import React,{act} from 'react';
+const dom=new JSDOM('<div id="test"></div>',{url:'https://portfolio.example/'});
+globalThis.window=dom.window;globalThis.document=dom.window.document;
+Object.defineProperty(globalThis,'navigator',{value:dom.window.navigator,configurable:true});
+globalThis.IS_REACT_ACT_ENVIRONMENT=true;
+const {createRoot}=await import('react-dom/client');
+const root=createRoot(document.getElementById('test'));
+await act(async()=>root.render(React.createElement(App,{pathname:'/'})));
+assert.equal(document.querySelectorAll('h1').length,1);
+const headshot=document.querySelector('#home img');
+assert.ok(headshot?.alt,'hero headshot needs meaningful alternative text');
+assert.match(headshot.getAttribute('srcset'),/640w.*1152w/,'hero headshot needs responsive WebP sources');
+assert.match(headshot.parentElement.parentElement.className,/lg:grid-cols-/,'hero should use a desktop two-column layout');
+assert.match(headshot.parentElement.parentElement.className,/items-start/,'hero image should align with the opening text rather than sit lower');
+assert.match(headshot.parentElement.className,/order-1.*lg:order-2/,'hero image should be visible before the text on small screens and on the right on desktop');
+assert.match(headshot.parentElement.previousElementSibling.className,/order-2.*lg:order-1/,'hero text should remain on the left on desktop');
+assert.equal(document.querySelector('#about img'),null,'headshot should not be repeated in About');
+for(const source of headshot.getAttribute('srcset').split(',').map(item=>item.trim().split(/\s+/)[0]))assert.ok(existsSync('public'+source),'missing responsive headshot '+source);
+assert.equal(document.querySelectorAll('#projects article').length,7);
+assert.equal(document.querySelectorAll('#projects section[aria-labelledby]').length,2);
+assert.equal(document.querySelectorAll('#about h4').length,8);
+assert.ok(document.querySelector('#contact form'));
+assert.ok(document.querySelector('a[href="mailto:abdullahnaeem151015@gmail.com"]'));
+for(const a of document.querySelectorAll('a[href*="streamlit.app"]'))assert.ok(/future-sales-forecasting|personalized-course-recommender/.test(a.href),'unverified demo link '+a.href);
+const menu=()=>document.querySelector('button[aria-controls="mobile-menu"]');
+await act(async()=>menu().click());assert.equal(menu().getAttribute('aria-expanded'),'true');assert.ok(document.getElementById('mobile-menu'));
+await act(async()=>window.dispatchEvent(new window.KeyboardEvent('keydown',{key:'Escape'})));
+assert.equal(menu().getAttribute('aria-expanded'),'false');
+await act(async()=>menu().click());await act(async()=>document.querySelector('#mobile-menu a[href="/#projects"]').click());assert.equal(menu().getAttribute('aria-expanded'),'false');
+let copied='';Object.defineProperty(navigator,'clipboard',{value:{writeText:async text=>{copied=text}},configurable:true});
+const copyButton=[...document.querySelectorAll('button')].find(b=>b.textContent.includes('Copy email'));
+await act(async()=>copyButton.click());assert.equal(copied,'abdullahnaeem151015@gmail.com');assert.match(copyButton.parentElement.nextElementSibling.textContent,/copied/);
+Object.defineProperty(navigator,'clipboard',{value:{writeText:async()=>{throw Error('denied')}},configurable:true});
+await act(async()=>copyButton.click());assert.match(copyButton.parentElement.nextElementSibling.textContent,/Could not copy/);
+for(const path of paths){
+ const out=render(path,'https://portfolio.example');const page=new JSDOM(out.html).window.document;
+ assert.equal(page.querySelectorAll('h1').length,1,path);
+ assert.match(out.meta,/<title>/);assert.match(out.meta,/rel="canonical"/);assert.match(out.meta,/application\/ld\+json/);
+ for(const img of page.querySelectorAll('img')){assert.ok(img.alt);assert.ok(existsSync('public'+img.getAttribute('src')));}
+ const filename=path==='/'?'dist/index.html':path==='/404'?'dist/404.html':`dist${path}/index.html`;
+ assert.ok(existsSync(filename));assert.match(readFileSync(filename,'utf8'),/<h1/);
+}
+await act(async()=>root.unmount());dom.window.close();
+console.log('PASS: 8 prerendered routes, six project cards, eight skill groups, SEO, images, menu open/close/Escape/navigation, mailto, clipboard success/failure and hidden unverified demos.');
