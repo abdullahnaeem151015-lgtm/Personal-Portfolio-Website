@@ -45,17 +45,12 @@ I then made targeted improvements and repeated the Lighthouse audit to evaluate 
 
 ## Lighthouse results (mobile simulation):
 
-**Category**                                    **Initial**                          **After Optimization**
-
-Performance                                         84                                       93
-
-Accessibility                                       100                                      100
-
-Best Practices                                      96                                       100
-
-SEO                                                 100                                      100
-
-
+| Category | Initial Score | After Optimization |
+|----------|:-------------:|:------------------:|
+| Performance | 84 | 93 |
+| Accessibility | 100 | 100 |
+| Best Practices | 96 | 100 |
+| SEO | 100 | 100 |
 
 
 
