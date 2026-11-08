@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://abdullah-naeem-portfolio.netlify.app/sitemap.xml
