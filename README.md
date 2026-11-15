@@ -4,6 +4,14 @@ A modern portfolio website built to present my work as a machine learning and so
 
 This project is more than just a personal site — it is a practical showcase of how I think, build, and communicate technical work. I designed it to highlight my projects, technical skills, and experience in a way that feels polished enough for clients, recruiters, and collaborators.
 
+---
+
+## Live Demo
+
+ [**DEPLOYED WEBSITE**](https://abdullah-naeem-portfolio.netlify.app/)
+
+---
+
 ## What I built
 
 I wanted a portfolio that feels credible, modern, and easy to use on both desktop and mobile. The site includes:
@@ -13,6 +21,8 @@ I wanted a portfolio that feels credible, modern, and easy to use on both deskto
 - contact options for client enquiries and collaborations
 - responsive layout and clean visual design
 - SEO-friendly metadata for better visibility
+
+---
 
 ## My workflow
 
@@ -26,6 +36,8 @@ I built this project from the ground up with a simple but effective workflow:
 6. I added project pages and supporting content to explain the problem, approach, tools, and impact behind each piece of work.
 7. I focused on performance and usability, making sure the site feels fast and polished instead of over-designed.
 8. Finally, I configured the contact form and production setup so visitors can actually reach out without leaving the website.
+
+---
 
 ## Tech stack
 
@@ -43,6 +55,8 @@ This project was built with:
 
 I then made targeted improvements and repeated the Lighthouse audit to evaluate the results.
 
+---
+
 ## Lighthouse results (mobile simulation):
 
 | Category | Initial Score | After Optimization |
@@ -52,7 +66,7 @@ I then made targeted improvements and repeated the Lighthouse audit to evaluate 
 | Best Practices | 96 | 100 |
 | SEO | 100 | 100 |
 
-
+---
 
 ## Why this project matters
 
@@ -65,10 +79,18 @@ This portfolio demonstrates more than just frontend design. It shows that I can:
 
 It reflects how I approach building real products: simple structure, clear communication, strong design, and practical implementation.
 
+---
+
 ## Contact
 
 If you’d like to discuss a project, collaboration, or opportunity, feel free to reach out through the contact form on the site.
 
 ---
+
+Abdullah
+
+Applied Machine Learning Engineer/Software Developer
+
+
 
 This portfolio is an ongoing personal project. I plan to maintain and improve it as I gain further development experience and complete new projects.
