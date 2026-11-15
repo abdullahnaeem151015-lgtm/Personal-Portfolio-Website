@@ -84,6 +84,7 @@ export const contact = {
   phone: "+92 312 7733376",
   linkedin: "https://www.linkedin.com/in/abdullah-naeem-736103325/",
   github: "https://github.com/abdullahnaeem151015-lgtm",
+  kaggle: "https://www.kaggle.com/abdullahnaeem151015",
 };
 
 export type SkillIcon = "code" | "layout" | "database" | "brain" | "table" | "chart" | "sparkles" | "wrench";
@@ -239,12 +240,12 @@ export const projects: Project[] = [
       "Add uncertainty ranges to estimates.",
       "Expand audit history and add operational monitoring for saved forecasts.",
     ],
-    githubUrl: "https://github.com/abdullahnaeem151015-lgtm/ASSET-RESIDUAL-VALUE-FORECASTING-ENGINE",
-    demoUrl: null,
-    demoVerified: false,
+    githubUrl: "https://github.com/abdullahnaeem151015-lgtm/AUTOMOTIVE-RESIDUAL-VALUE-FORECASTING-ENGINE",
+    demoUrl: "https://victorious-dune-063d4fb00.6.azurestaticapps.net",
+    demoVerified: true,
     displayOrder: 2,
     status: "prototype",
-    sources: [{ label: "Repository README", url: "https://github.com/abdullahnaeem151015-lgtm/ASSET-RESIDUAL-VALUE-FORECASTING-ENGINE" }],
+    sources: [{ label: "Repository README", url: "https://github.com/abdullahnaeem151015-lgtm/AUTOMOTIVE-RESIDUAL-VALUE-FORECASTING-ENGINE" }],
     featured: true,
     tag: "Full-Stack",
     evaluation: [

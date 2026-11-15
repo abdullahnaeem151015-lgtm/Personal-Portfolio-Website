@@ -25,6 +25,7 @@ assert.equal(document.querySelectorAll('#projects section[aria-labelledby]').len
 assert.equal(document.querySelectorAll('#about h4').length,8);
 assert.ok(document.querySelector('#contact form'));
 assert.ok(document.querySelector('a[href="mailto:abdullahnaeem151015@gmail.com"]'));
+assert.equal(document.querySelectorAll('a[href="https://www.kaggle.com/abdullahnaeem151015"]').length,2,'Kaggle profile should appear in the hero and professional profiles');
 for(const a of document.querySelectorAll('a[href*="streamlit.app"]'))assert.ok(/future-sales-forecasting|personalized-course-recommender/.test(a.href),'unverified demo link '+a.href);
 const menu=()=>document.querySelector('button[aria-controls="mobile-menu"]');
 await act(async()=>menu().click());assert.equal(menu().getAttribute('aria-expanded'),'true');assert.ok(document.getElementById('mobile-menu'));

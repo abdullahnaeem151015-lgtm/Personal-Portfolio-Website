@@ -1,5 +1,5 @@
 ﻿import { Link } from "@/components/Link";
-import { ArrowRight, BarChart3, Brain, Code2, Database, LayoutTemplate, Sparkles, Table2, Wrench, type LucideIcon } from "lucide-react";
+import { ArrowRight, BarChart3, Brain, Code2, Database, Github, LayoutTemplate, Sparkles, Table2, Wrench, type LucideIcon } from "lucide-react";
 import {
   certificationsPlaceholder, experience, featuredProjects, getProject, profile, contact, services, servicesNote, skillGroups, skillsNote, visibleCertifications, type SkillIcon,
 } from "@/data/portfolio";
@@ -11,6 +11,22 @@ import { ContactForm } from "@/components/ContactForm";
 const icons: Record<SkillIcon, LucideIcon> = {
   code: Code2, layout: LayoutTemplate, database: Database, brain: Brain, table: Table2, chart: BarChart3, sparkles: Sparkles, wrench: Wrench,
 };
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.44-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.44c.98 0 1.79-.77 1.79-1.72V1.72C24 .77 23.19 0 22.21 0h.01Z" />
+    </svg>
+  );
+}
+
+function KaggleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="h-4 w-4">
+      <path d="M7 3v18M7 13l10-9M10 10l8 11" />
+    </svg>
+  );
+}
 
 function SectionHeading({ eyebrow, title, id }: { eyebrow: string; title: string; id: string }) {
   return (
@@ -45,7 +61,14 @@ export default function Home() {
               <Link to="/" hash="projects" className="btn-primary">View Projects <ArrowRight className="h-4 w-4" aria-hidden /></Link>
               <Link to="/" hash="contact" className="btn-outline">Discuss a Project</Link>
             </div>
-            <p className="mt-6 text-sm text-muted-foreground">{profile.education} · <a className="link" href={contact.github} target="_blank" rel="noreferrer">GitHub ↗</a> · <a className="link" href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+              <p className="text-muted-foreground">{profile.education}</p>
+              <nav aria-label="Social profiles" className="flex flex-wrap gap-2">
+                <a className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/70 px-3 py-2 font-medium text-heading transition-colors hover:border-primary hover:text-primary" href={contact.github} target="_blank" rel="noreferrer"><Github className="h-4 w-4" aria-hidden />GitHub</a>
+                <a className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/70 px-3 py-2 font-medium text-heading transition-colors hover:border-primary hover:text-primary" href={contact.linkedin} target="_blank" rel="noreferrer"><LinkedInIcon />LinkedIn</a>
+                <a className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/70 px-3 py-2 font-medium text-heading transition-colors hover:border-primary hover:text-primary" href={contact.kaggle} target="_blank" rel="noreferrer"><KaggleIcon />Kaggle</a>
+              </nav>
+            </div>
           </div>
           <figure className="order-1 mx-auto w-full max-w-[18rem] lg:order-2 lg:ml-auto lg:max-w-sm">
             <img
